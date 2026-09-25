@@ -1,0 +1,43 @@
+<div class="vx-board">
+  {%- if section.settings.heading != blank -%}
+    <h2 class="vx-board__title">{{ section.settings.heading | escape }}</h2>
+  {%- endif -%}
+  <dl class="vx-board__panel">
+    {%- for block in section.blocks -%}
+      <div class="vx-board__row" {{ block.shopify_attributes }}>
+        <dt class="vx-board__label">{{ block.settings.label | escape }}</dt>
+        <dd class="vx-board__value" style="margin: 0;">{{ block.settings.value | escape }}</dd>
+      </div>
+    {%- endfor -%}
+  </dl>
+</div>
+
+{% schema %}
+{
+  "name": "Vertic info board",
+  "tag": "section",
+  "class": "section-vertic-board",
+  "max_blocks": 6,
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Before you ride" }
+  ],
+  "blocks": [
+    {
+      "type": "row",
+      "name": "Row",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Printed to order" },
+        { "type": "text", "id": "value", "label": "Detail", "default": "Your piece is made after you order it. Nothing sits in a warehouse." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Vertic info board",
+      "blocks": [
+        { "type": "row" }
+      ]
+    }
+  ]
+}
+{% endschema %}

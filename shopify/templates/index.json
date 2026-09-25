@@ -1,0 +1,79 @@
+{
+  "sections": {
+    "banner": {
+      "type": "vertic-hero",
+      "blocks": {
+        "sign_men": {
+          "type": "sign",
+          "settings": { "label": "Men", "link": "shopify://collections/men" }
+        },
+        "sign_women": {
+          "type": "sign",
+          "settings": { "label": "Women", "link": "shopify://collections/women" }
+        }
+      },
+      "block_order": ["sign_men", "sign_women"],
+      "settings": {
+        "image": "shopify://shop_images/vertic-hero.jpg",
+        "focal": "70% 50%",
+        "heading": "Built for the lift line",
+        "text": "Snowboard and ski apparel, printed to order and shipped across the EU.",
+        "nav_label": "Shop by range"
+      }
+    },
+    "ranges": {
+      "type": "vertic-split",
+      "blocks": {
+        "men": {
+          "type": "range",
+          "settings": {
+            "image": "shopify://shop_images/vertic-men.jpg",
+            "label": "Men",
+            "sub": "Hoodies, tees, jackets",
+            "link": "shopify://collections/men"
+          }
+        },
+        "women": {
+          "type": "range",
+          "settings": {
+            "image": "shopify://shop_images/vertic-women.jpg",
+            "label": "Women",
+            "sub": "Hoodies, tees, jackets",
+            "link": "shopify://collections/women"
+          }
+        }
+      },
+      "block_order": ["men", "women"],
+      "settings": {}
+    },
+    "board": {
+      "type": "vertic-board",
+      "blocks": {
+        "made": {
+          "type": "row",
+          "settings": {
+            "label": "Printed to order",
+            "value": "Each piece is made after you order it, so nothing sits in a warehouse."
+          }
+        },
+        "delivery": {
+          "type": "row",
+          "settings": {
+            "label": "EU delivery",
+            "value": "5 to 15 business days, with tracking once your parcel ships."
+          }
+        },
+        "returns": {
+          "type": "row",
+          "settings": {
+            "label": "14-day returns",
+            "value": "Change your mind within 14 days. Faulty items are replaced free."
+          }
+        }
+      },
+      "block_order": ["made", "delivery", "returns"],
+      "settings": { "heading": "How ordering works" }
+    }
+  },
+  "order": ["banner", "ranges", "board"]
+}

@@ -1,0 +1,64 @@
+<div class="vx-split">
+  {%- for block in section.blocks -%}
+    <a
+      class="vx-tile"
+      href="{{ block.settings.link | default: routes.all_products_collection_url }}"
+      {{ block.shopify_attributes }}
+    >
+      <div class="vx-tile__media">
+        {%- if block.settings.image != blank -%}
+          {{
+            block.settings.image
+            | image_url: width: 1136
+            | image_tag:
+              widths: '550, 750, 1000, 1136',
+              sizes: '(min-width: 750px) 50vw, 100vw',
+              loading: 'lazy',
+              alt: block.settings.image.alt
+          }}
+        {%- else -%}
+          <div class="vx-tile__placeholder"></div>
+        {%- endif -%}
+      </div>
+      <span class="vx-plate">
+        <span class="vx-plate__label">
+          {{ block.settings.label | escape }}
+          {%- if block.settings.sub != blank -%}
+            <span class="vx-tile__sub">{{ block.settings.sub | escape }}</span>
+          {%- endif -%}
+        </span>
+        <span class="vx-plate__arrow">{%- render 'vertic-arrow' -%}</span>
+      </span>
+    </a>
+  {%- endfor -%}
+</div>
+
+{% schema %}
+{
+  "name": "Vertic Men / Women",
+  "tag": "section",
+  "class": "section-vertic-split",
+  "max_blocks": 2,
+  "blocks": [
+    {
+      "type": "range",
+      "name": "Range",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image", "info": "Portrait 4:5." },
+        { "type": "text", "id": "label", "label": "Label", "default": "Men" },
+        { "type": "text", "id": "sub", "label": "Small line", "default": "Hoodies, tees, jackets" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Vertic Men / Women",
+      "blocks": [
+        { "type": "range", "settings": { "label": "Men" } },
+        { "type": "range", "settings": { "label": "Women" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

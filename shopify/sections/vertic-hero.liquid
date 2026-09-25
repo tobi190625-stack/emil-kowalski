@@ -1,0 +1,103 @@
+<section class="vx-hero" style="--vx-focal: {{ section.settings.focal }};">
+  <div class="vx-hero__media">
+    {%- if section.settings.image != blank -%}
+      {{
+        section.settings.image
+        | image_url: width: 1920
+        | image_tag:
+          widths: '750, 1100, 1500, 1920',
+          sizes: '100vw',
+          loading: 'eager',
+          fetchpriority: 'high',
+          alt: section.settings.image.alt
+      }}
+    {%- endif -%}
+  </div>
+
+  <div class="vx-hero__copy">
+    {%- if section.settings.heading != blank -%}
+      <h1 class="vx-hero__title">{{ section.settings.heading }}</h1>
+    {%- endif -%}
+    {%- if section.settings.text != blank -%}
+      <p class="vx-hero__text">{{ section.settings.text }}</p>
+    {%- endif -%}
+  </div>
+
+  <nav class="vx-signpost" aria-label="{{ section.settings.nav_label | escape }}">
+    {%- for block in section.blocks -%}
+      <a
+        class="vx-plate{% if forloop.index > 1 %} vx-plate--lift{% endif %}"
+        href="{{ block.settings.link | default: routes.all_products_collection_url }}"
+        {{ block.shopify_attributes }}
+      >
+        <span class="vx-plate__label">{{ block.settings.label | escape }}</span>
+        <span class="vx-plate__arrow">{%- render 'vertic-arrow' -%}</span>
+      </a>
+    {%- endfor -%}
+  </nav>
+</section>
+
+{% schema %}
+{
+  "name": "Vertic banner",
+  "tag": "div",
+  "class": "section-vertic-hero",
+  "max_blocks": 3,
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Banner image",
+      "info": "Landscape, at least 1920px wide."
+    },
+    {
+      "type": "select",
+      "id": "focal",
+      "label": "Image focus",
+      "options": [
+        { "value": "30% 50%", "label": "Left" },
+        { "value": "50% 50%", "label": "Center" },
+        { "value": "70% 50%", "label": "Right" }
+      ],
+      "default": "70% 50%"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Built for the lift line"
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Text",
+      "default": "Snowboard and ski apparel, printed to order and shipped across the EU."
+    },
+    {
+      "type": "text",
+      "id": "nav_label",
+      "label": "Sign group name (screen readers)",
+      "default": "Shop by range"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "sign",
+      "name": "Sign",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Men" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Vertic banner",
+      "blocks": [
+        { "type": "sign", "settings": { "label": "Men" } },
+        { "type": "sign", "settings": { "label": "Women" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
