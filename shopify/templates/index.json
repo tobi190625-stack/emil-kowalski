@@ -2,23 +2,13 @@
   "sections": {
     "banner": {
       "type": "vertic-hero",
-      "blocks": {
-        "sign_men": {
-          "type": "sign",
-          "settings": { "label": "Men", "link": "shopify://collections/men" }
-        },
-        "sign_women": {
-          "type": "sign",
-          "settings": { "label": "Women", "link": "shopify://collections/women" }
-        }
-      },
-      "block_order": ["sign_men", "sign_women"],
       "settings": {
-        "image": "shopify://shop_images/vertic-hero.jpg",
-        "focal": "70% 50%",
-        "heading": "Built for the lift line",
+        "image": "shopify://shop_images/vertic-banner-ridge.jpg",
+        "focal": "50% 50%",
+        "heading": "Built for the steep side",
         "text": "Snowboard and ski apparel, printed to order and shipped across the EU.",
-        "nav_label": "Shop by range"
+        "button_label": "Shop all",
+        "button_link": "shopify://collections/all"
       }
     },
     "ranges": {
@@ -27,53 +17,40 @@
         "men": {
           "type": "range",
           "settings": {
-            "image": "shopify://shop_images/vertic-men.jpg",
+            "image": "shopify://shop_images/vertic-men-mountain.jpg",
+            "focal": "50% 50%",
             "label": "Men",
-            "sub": "Hoodies, tees, jackets",
             "link": "shopify://collections/men"
           }
         },
         "women": {
           "type": "range",
           "settings": {
-            "image": "shopify://shop_images/vertic-women.jpg",
+            "image": "shopify://shop_images/vertic-women-board.jpg",
+            "focal": "50% 20%",
             "label": "Women",
-            "sub": "Hoodies, tees, jackets",
             "link": "shopify://collections/women"
           }
         }
       },
       "block_order": ["men", "women"],
-      "settings": {}
+      "settings": { "cue": "Shop now" }
     },
-    "board": {
-      "type": "vertic-board",
+    "newsletter": {
+      "type": "newsletter",
       "blocks": {
-        "made": {
-          "type": "row",
-          "settings": {
-            "label": "Printed to order",
-            "value": "Each piece is made after you order it, so nothing sits in a warehouse."
-          }
-        },
-        "delivery": {
-          "type": "row",
-          "settings": {
-            "label": "EU delivery",
-            "value": "5 to 15 business days, with tracking once your parcel ships."
-          }
-        },
-        "returns": {
-          "type": "row",
-          "settings": {
-            "label": "14-day returns",
-            "value": "Change your mind within 14 days. Faulty items are replaced free."
-          }
-        }
+        "heading": { "type": "heading", "settings": { "heading": "Get the drops first", "heading_size": "h1" } },
+        "text": { "type": "paragraph", "settings": { "text": "<p>New releases and restocks straight to your inbox. Unsubscribe anytime.</p>" } },
+        "form": { "type": "email_form", "settings": {} }
       },
-      "block_order": ["made", "delivery", "returns"],
-      "settings": { "heading": "How ordering works" }
+      "block_order": ["heading", "text", "form"],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "full_width": true,
+        "padding_top": 72,
+        "padding_bottom": 80
+      }
     }
   },
-  "order": ["banner", "ranges", "board"]
+  "order": ["banner", "ranges", "newsletter"]
 }

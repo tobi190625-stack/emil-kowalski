@@ -1,4 +1,4 @@
-// Vertic motion. Progressive enhancement only: every sign is a real <a href>,
+// Vertic motion. Progressive enhancement only: every tile and button is a real <a href>,
 // so taps navigate even if this never runs. No click handlers, no preventDefault.
 (function () {
   var root = document.documentElement;
@@ -14,17 +14,13 @@
     });
   });
 
-  // Once the signs have been hung, switch plates to snappy press-only transitions.
   setTimeout(function () {
     root.classList.add('vx-settled');
-  }, reduce ? 0 : 1200);
+  }, reduce ? 0 : 1100);
 
   var tiles = document.querySelectorAll('.vx-tile');
   function show(tile) {
     tile.setAttribute('data-in', '');
-    setTimeout(function () {
-      tile.setAttribute('data-settled', '');
-    }, 950);
   }
 
   if (!('IntersectionObserver' in window) || reduce) {
@@ -40,7 +36,7 @@
         io.unobserve(entry.target);
       });
     },
-    { rootMargin: '0px 0px -12% 0px' }
+    { rootMargin: '0px 0px -8% 0px' }
   );
   tiles.forEach(function (tile) {
     io.observe(tile);

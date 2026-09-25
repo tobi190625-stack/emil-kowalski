@@ -28,10 +28,10 @@ Operated from the Czech Republic; EU customers; delivery 5–15 business days; 1
 
 ## Capabilities and Constraints
 
-- Homepage structure is fixed by the owner: one big full-bleed banner, then large Men and Women entries.
+- Homepage structure is fixed by the owner: a half-screen banner, then Men and Women tiles side by side filling the rest of the first screen, then a newsletter.
 - Collections are not built yet. Sections must link to merchant-chosen URLs set in the theme editor, not hard-coded collections.
 - Previous site felt glitchy: taps not navigating, needing double taps. Every control must be a real link and respond on first tap.
-- Big but minimal.
+- Big but minimal. The owner rejected a blue and yellow palette; keep it monochrome.
 
 ## Brand Commitments
 
@@ -40,7 +40,7 @@ Operated from the Czech Republic; EU customers; delivery 5–15 business days; 1
 ## Evidence on Hand
 
 - Store policies (shipping, returns). No reviews, press, or customer counts exist — do not invent them.
-- Banner and collection imagery: AI-generated via Canva for this rebuild.
+- Banner and collection imagery: real Pexels photos (free commercial licence). The owner does not want AI-generated imagery.
 
 ## Product Principles
 

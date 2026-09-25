@@ -1,35 +1,37 @@
-# Vertic design system: lift-station signage
+# Vertic design system: monochrome, photo-led
 
-The store reads like the signs at a lift base station. Navigation is a set of sign plates with arrows; everything else stays out of the way of the photography.
+The homepage keeps the owner's layout: a half-screen banner, then Men and Women as two flush click-through tiles that fill the rest of the first screen, then a newsletter sign-up. Everything around the photos is black and white so the photography carries the colour.
+
+## References and what was taken from each
+
+- **Represent**: strict black and white, centred wordmark, slow photo zoom on hover.
+- **Arc'teryx**: banner headline bottom left with one pill button; category tiles labelled bottom left.
+- **Aimé Leon Dore**: headline words slide up from behind a mask; underlined text links.
+- **Norrøna / Nike**: big tap targets, smooth page-to-page fades.
 
 ## Tokens (`shopify/assets/vertic.css`)
 
 | Token | Value | Use |
 | --- | --- | --- |
-| `--vx-lift` | `#0c3a8a` | Header, secondary sign plate |
-| `--vx-lift-deep` | `#082c6b` | Page ground behind tiles, board, footer, hero scrim |
-| `--vx-plate` | `#f3f5f6` | Enamel sign plate, text on blue |
-| `--vx-ink` | `#0b1526` | Text on plates and on yellow |
-| `--vx-signal` | `#ffc629` | Arrow tiles, announcement bar, board labels, focus ring, selection |
-| `--vx-muted-on-lift` | `#c9d6ee` | Secondary text on blue |
-| `--vx-radius` | `6px` | Every corner: plates, tiles, board, buttons |
+| `--vx-ink` | `#111111` | Text, announcement bar, selection |
+| `--vx-white` | `#ffffff` | Header, buttons, text on photos |
+| `--vx-line` | `rgba(17,17,17,.12)` | Header and footer hairlines |
+| `--vx-ease-out` | `cubic-bezier(0.23, 1, 0.32, 1)` | Entrances, hovers, presses |
+| `--vx-ease-in-out` | `cubic-bezier(0.77, 0, 0.175, 1)` | Tile wipe reveal |
 
-Type: Barlow Condensed 600/700 (display, uppercase) and Barlow 400/500/600 (text), from Google Fonts.
-
-## Components
-
-- **Sign plate** (`.vx-plate`): white or lift-blue plate, uppercase condensed label, yellow arrow tile on the right. Always a real `<a href>`. Presses scale to 0.97 in 140ms.
-- **Signpost** (`.vx-signpost`): plates hung on a steel pole in the hero, bottom right. On phones the pole drops away and the plates go full width.
-- **Range tile** (`.vx-tile`): 4:5 photo with a plate hung at the bottom left.
-- **Info board** (`.vx-board`): dark lift-status panel, yellow labels, plain detail text.
+Type: Geist 400 to 700 from Google Fonts. Headlines 600 weight, tight tracking (-0.035em). Nav in small uppercase with wide tracking. All buttons and inputs are full pills.
 
 ## Motion
 
-One authored moment: on load the hero photo settles from 1.05 scale, the headline fades up, and the sign plates swing in from the pole (`--vx-ease-hang`, a light overshoot used only here). Range tiles reveal once with a clip-path as they scroll in. After that, only press feedback. Reduced motion keeps the fades and drops all movement.
+- Banner: photo settles from 1.08 scale, headline words rise out of masks one after another, text and button fade up.
+- Tiles: photos wipe up from the bottom when they scroll in, then the label fades up. Hover zooms the photo to 1.04 and redraws the underline; press eases it back.
+- Banner drifts slower than the page as it scrolls away (CSS scroll-driven animation, where supported).
+- Page to page: 220ms cross-fade via cross-document view transitions.
+- Reduced motion removes all movement.
 
 ## Rules
 
 - Hover effects live inside `@media (hover: hover) and (pointer: fine)` only.
-- Entrance start states exist only under `html.vx-motion`, which is set in `<head>` outside the theme editor, with a 3s failsafe that reveals everything.
-- No click handlers on navigation. Links navigate on the first tap.
-- No eyebrows, no em dashes, one accent (signal yellow).
+- Entrance start states exist only under `html.vx-motion`, set in `<head>` outside the theme editor, with a 3s failsafe that reveals everything.
+- No click handlers on navigation. Every tile and button is a plain link.
+- Photos are real (Pexels licence), never generated.
