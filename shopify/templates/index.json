@@ -1,0 +1,56 @@
+{
+  "sections": {
+    "banner": {
+      "type": "vertic-hero",
+      "settings": {
+        "image": "shopify://shop_images/vertic-banner-ridge.jpg",
+        "focal": "50% 50%",
+        "heading": "Built for the steep side",
+        "text": "Snowboard and ski apparel, printed to order and shipped across the EU.",
+        "button_label": "Shop all",
+        "button_link": "shopify://collections/all"
+      }
+    },
+    "ranges": {
+      "type": "vertic-split",
+      "blocks": {
+        "men": {
+          "type": "range",
+          "settings": {
+            "image": "shopify://shop_images/vertic-men-mountain.jpg",
+            "focal": "50% 50%",
+            "label": "Men",
+            "link": "shopify://collections/men"
+          }
+        },
+        "women": {
+          "type": "range",
+          "settings": {
+            "image": "shopify://shop_images/vertic-women-board.jpg",
+            "focal": "50% 20%",
+            "label": "Women",
+            "link": "shopify://collections/women"
+          }
+        }
+      },
+      "block_order": ["men", "women"],
+      "settings": { "cue": "Shop now" }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "blocks": {
+        "heading": { "type": "heading", "settings": { "heading": "Get the drops first", "heading_size": "h1" } },
+        "text": { "type": "paragraph", "settings": { "text": "<p>New releases and restocks straight to your inbox. Unsubscribe anytime.</p>" } },
+        "form": { "type": "email_form", "settings": {} }
+      },
+      "block_order": ["heading", "text", "form"],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "full_width": true,
+        "padding_top": 72,
+        "padding_bottom": 80
+      }
+    }
+  },
+  "order": ["banner", "ranges", "newsletter"]
+}

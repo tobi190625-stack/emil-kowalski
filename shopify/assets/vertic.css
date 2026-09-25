@@ -1,0 +1,545 @@
+/* Vertic storefront. Monochrome, photo-led.
+   Motion follows skills/emil-design-eng, touch behaviour follows skills/mobile-native. */
+
+:root {
+  --vx-ink: #111111;
+  --vx-paper: #fafafa;
+  --vx-white: #ffffff;
+  --vx-grey: #6b6b6b;
+  --vx-line: rgba(17, 17, 17, 0.12);
+
+  --vx-font: 'Geist', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+  --vx-ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --vx-ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+
+  --vx-gutter: clamp(16px, 3.2vw, 48px);
+}
+
+/* ---------- Page transitions between pages (clicking through feels continuous) ---------- */
+
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 220ms;
+  animation-timing-function: ease;
+}
+
+/* ---------- Platform layer: first tap always lands ---------- */
+
+html {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+}
+
+a,
+button,
+summary,
+[role='button'] {
+  touch-action: manipulation;
+}
+
+.vx-btn,
+.vx-tile,
+.header__menu-item,
+.header__icon,
+.button {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+::selection {
+  background: var(--vx-ink);
+  color: var(--vx-white);
+}
+
+/* ---------- Dawn chrome, re-typed ---------- */
+
+body,
+h1, h2, h3, h4, .h0, .h1, .h2, .h3, .h4,
+.button, .field__input, .announcement-bar__message {
+  font-family: var(--vx-font);
+}
+
+body {
+  letter-spacing: 0;
+  color: var(--vx-ink);
+}
+
+h1, h2, h3, .h0, .h1, .h2, .h3 {
+  letter-spacing: -0.02em;
+  font-weight: 600;
+}
+
+.announcement-bar-section .announcement-bar,
+.announcement-bar-section .utility-bar {
+  background: var(--vx-ink);
+  color: var(--vx-white);
+  border: 0;
+}
+
+.announcement-bar__message {
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--vx-white);
+}
+
+.section-header .header-wrapper {
+  background: var(--vx-white);
+  border-bottom: 1px solid var(--vx-line);
+}
+
+.section-header .header__heading-link .h2 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--vx-ink);
+}
+
+.section-header .header__menu-item {
+  font-size: 1.3rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--vx-ink);
+}
+
+.section-header .header__menu-item span {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 1px;
+  text-decoration: none;
+  transition: background-size 250ms var(--vx-ease-out);
+}
+
+.section-header .header__active-menu-item {
+  text-decoration: none;
+  background-size: 100% 1px;
+}
+
+.section-header .cart-count-bubble {
+  background: var(--vx-ink);
+  color: var(--vx-white);
+}
+
+.footer {
+  border-top: 1px solid var(--vx-line);
+}
+
+.button:not(.button--tertiary),
+.shopify-payment-button__button--unbranded {
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 1.4rem;
+  letter-spacing: 0.02em;
+  transition: transform 140ms var(--vx-ease-out);
+}
+
+.button:not(.button--tertiary)::after,
+.button:not(.button--tertiary)::before {
+  border-radius: 999px;
+}
+
+.button:not([disabled]):active,
+.shopify-payment-button__button--unbranded:active {
+  transform: scale(0.97);
+}
+
+.field__input,
+.field::after,
+.field::before {
+  border-radius: 999px;
+}
+
+/* ---------- Shared: pill button ---------- */
+
+.vx-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 24px;
+  border-radius: 999px;
+  background: var(--vx-white);
+  color: var(--vx-ink);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  transition:
+    transform 140ms var(--vx-ease-out),
+    background-color 200ms ease,
+    color 200ms ease;
+}
+
+.vx-btn svg {
+  width: 16px;
+  height: 16px;
+  transition: transform 200ms var(--vx-ease-out);
+}
+
+.vx-btn:active {
+  transform: scale(0.97);
+}
+
+.vx-btn:focus-visible,
+.vx-tile:focus-visible {
+  outline: 2px solid var(--vx-white);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 5px var(--vx-ink);
+}
+
+/* ---------- Banner: half screen ---------- */
+
+.vx-hero {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: flex-end;
+  height: 50vh;
+  height: 50svh;
+  min-height: 360px;
+  overflow: hidden;
+  background: #cfd6de;
+  color: var(--vx-white);
+}
+
+.vx-hero__media {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+}
+
+.vx-hero__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--vx-focal, 50% 50%);
+}
+
+.vx-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.18) 45%, rgba(0, 0, 0, 0) 70%);
+  pointer-events: none;
+}
+
+.vx-hero__content {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px 32px;
+  width: 100%;
+  padding: 0 var(--vx-gutter) clamp(24px, 4.5vh, 48px);
+}
+
+.vx-hero__title {
+  margin: 0;
+  max-width: 14ch;
+  font-size: clamp(40px, 6vw, 88px);
+  font-weight: 600;
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+  color: var(--vx-white);
+  text-wrap: balance;
+}
+
+.vx-hero__text {
+  margin: 14px 0 0;
+  max-width: 38ch;
+  font-size: clamp(15px, 1.15vw, 17px);
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+/* Headline words reveal from behind a mask */
+.vx-word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+
+.vx-word > span {
+  display: inline-block;
+}
+
+/* ---------- Men / Women: side by side, flush ---------- */
+
+.vx-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--vx-ink);
+}
+
+.vx-tile {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  color: var(--vx-white);
+  text-decoration: none;
+  background: #d9dde2;
+}
+
+.vx-tile__media {
+  position: relative;
+  /* Banner takes the top half; the two tiles fill what is left of the first screen. */
+  height: max(320px, calc(50vh - 82px));
+  height: max(320px, calc(50svh - 82px));
+  overflow: hidden;
+}
+
+.vx-tile__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--vx-focal, 50% 50%);
+  transform: scale(1);
+  transition: transform 900ms var(--vx-ease-out);
+}
+
+.vx-tile__media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 45%);
+  pointer-events: none;
+}
+
+.vx-tile__placeholder {
+  width: 100%;
+  height: 100%;
+  background: #d9dde2;
+}
+
+.vx-tile__body {
+  position: absolute;
+  left: var(--vx-gutter);
+  right: var(--vx-gutter);
+  bottom: clamp(20px, 3.5vw, 40px);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.vx-tile__title {
+  margin: 0;
+  font-size: clamp(32px, 4.4vw, 64px);
+  font-weight: 600;
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+  color: var(--vx-white);
+}
+
+.vx-tile__cue {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% 1px;
+  transition: background-size 300ms var(--vx-ease-out);
+}
+
+.vx-tile__cue svg {
+  width: 14px;
+  height: 14px;
+  transition: transform 200ms var(--vx-ease-out);
+}
+
+/* Press: the photo gives a little, like pressing a card */
+.vx-tile:active .vx-tile__media img {
+  transform: scale(0.985);
+  transition-duration: 140ms;
+}
+
+@media (max-width: 749px) {
+  .vx-hero {
+    height: 56svh;
+    min-height: 340px;
+  }
+  .vx-hero__content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .vx-tile__media {
+    height: auto;
+    aspect-ratio: 3 / 4;
+  }
+  .vx-tile__body {
+    left: 14px;
+    right: 14px;
+    bottom: 16px;
+    gap: 10px;
+  }
+  .vx-tile__title {
+    font-size: 30px;
+  }
+  .vx-tile__cue {
+    font-size: 13px;
+  }
+}
+
+/* ---------- Hover: only for real mouse pointers ---------- */
+
+@media (hover: hover) and (pointer: fine) {
+  .section-header .header__menu-item:hover span {
+    background-size: 100% 1px;
+  }
+  .vx-btn:hover {
+    background: var(--vx-ink);
+    color: var(--vx-white);
+  }
+  .vx-btn:hover svg,
+  .vx-tile:hover .vx-tile__cue svg {
+    transform: translateX(3px);
+  }
+  .vx-tile:hover .vx-tile__media img {
+    transform: scale(1.04);
+  }
+  .vx-tile:hover:active .vx-tile__media img {
+    transform: scale(1.02);
+    transition-duration: 140ms;
+  }
+  .vx-tile:hover .vx-tile__cue {
+    animation: vx-underline 500ms var(--vx-ease-out);
+  }
+}
+
+@keyframes vx-underline {
+  0% { background-size: 100% 1px; background-position: 100% 100%; }
+  45% { background-size: 0% 1px; background-position: 100% 100%; }
+  46% { background-size: 0% 1px; background-position: 0 100%; }
+  100% { background-size: 100% 1px; background-position: 0 100%; }
+}
+
+/* ---------- Motion: one entrance, then tiles reveal once on scroll ---------- */
+/* Start states only exist under html.vx-motion, set in <head> when JS is running. */
+
+.vx-motion .vx-hero__media img {
+  transform: scale(1.08);
+  transition: transform 1600ms var(--vx-ease-out);
+}
+
+.vx-motion .vx-word > span {
+  transform: translateY(105%);
+  transition: transform 900ms var(--vx-ease-out);
+  transition-delay: calc(120ms + var(--i, 0) * 70ms);
+}
+
+.vx-motion .vx-hero__text,
+.vx-motion .vx-hero__cta {
+  opacity: 0;
+  transform: translateY(10px);
+  transition:
+    opacity 600ms var(--vx-ease-out),
+    transform 600ms var(--vx-ease-out);
+}
+
+.vx-motion .vx-hero__text { transition-delay: 380ms; }
+.vx-motion .vx-hero__cta { transition-delay: 460ms; }
+
+.vx-motion.vx-ready .vx-hero__media img,
+.vx-motion.vx-ready .vx-word > span {
+  transform: none;
+}
+
+.vx-motion.vx-ready .vx-hero__text,
+.vx-motion.vx-ready .vx-hero__cta {
+  opacity: 1;
+  transform: none;
+}
+
+/* After the entrance, the CTA answers presses instantly */
+.vx-motion.vx-settled .vx-hero__cta {
+  transition:
+    transform 140ms var(--vx-ease-out),
+    background-color 200ms ease,
+    color 200ms ease;
+  transition-delay: 0ms;
+}
+
+.vx-motion.vx-ready .vx-hero__cta:active {
+  transform: scale(0.97);
+}
+
+.vx-motion .vx-tile__media {
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path 1000ms var(--vx-ease-in-out);
+}
+
+.vx-motion .vx-tile:nth-child(2) .vx-tile__media {
+  transition-delay: 90ms;
+}
+
+.vx-motion .vx-tile__body {
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 600ms var(--vx-ease-out) 450ms,
+    transform 600ms var(--vx-ease-out) 450ms;
+}
+
+.vx-motion .vx-tile[data-in] .vx-tile__media {
+  clip-path: inset(0 0 0 0);
+}
+
+.vx-motion .vx-tile[data-in] .vx-tile__body {
+  opacity: 1;
+  transform: none;
+}
+
+/* Banner photo drifts slower than the page as it scrolls away (where supported) */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .vx-hero__media {
+      top: -18%;
+      animation: vx-drift linear both;
+      animation-timeline: view();
+      animation-range: exit 0% exit 100%;
+    }
+  }
+}
+
+@keyframes vx-drift {
+  to { transform: translateY(18%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vx-motion .vx-hero__media img,
+  .vx-motion .vx-word > span,
+  .vx-motion .vx-hero__text,
+  .vx-motion .vx-hero__cta,
+  .vx-motion .vx-tile__body,
+  .vx-tile__media img {
+    transform: none !important;
+  }
+  .vx-motion .vx-tile__media {
+    clip-path: none;
+    transition: none;
+  }
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+}
